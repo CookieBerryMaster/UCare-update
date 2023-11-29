@@ -16,8 +16,9 @@ import javax.persistence.MappedSuperclass;
 public class Ids {
     @Id
     @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @GenericGenerator(name="system-uuid"
+            ,strategy = "uuid")
     @Column(length = 32)
     @Hidden
-    private Integer id;
+    private String id;
 }

@@ -10,11 +10,11 @@ public class EntityManagerAdmin {
     private static EntityManager instance;
     private static final String UNIDAD = "default";
     public static EntityManager getInstance() {
-        EntityManager emf = XPersistence.getManager();
-        if(emf == null){
-            emf = XPersistence.createManager();
+        EntityManager em = XPersistence.getManager();
+        if(em == null){
+            em = XPersistence.createManager();
         }
-        return emf;
+        return em;
     }
 
     private EntityManagerAdmin(){}

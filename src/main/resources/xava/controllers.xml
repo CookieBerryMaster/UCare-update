@@ -19,6 +19,11 @@
         <action name="signIn"
                 class="org.example.UCare.actions.ConexionUsuariosAction"/>
     </controller>-->
+
+    <controller name="SignIn">
+        <action name="signIn"
+                class="org.example.UCare.actions.ConexionUsuariosAction"/>
+    </controller>
     
     <!-- Controller:
     <controller name="Teacher">
