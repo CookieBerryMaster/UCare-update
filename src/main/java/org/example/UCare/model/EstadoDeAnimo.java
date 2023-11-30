@@ -19,7 +19,7 @@ import java.util.Date;
 @Setter
 @Entity
 @View(members = "estadoDeAnimo[" + " estado;" + " comentario;" + " fecha;" + " ];" + "Ucare{estudiantes}")
-@Tab(properties = "estado,estudiantes.nombre",
+@Tab(properties = "estado,estudiantes.nombre, comentario",
         baseCondition = "${estudiantes.cif}=?", filter= FilterEstudiante.class)
 public class EstadoDeAnimo extends Ids {
     public enum ESTADO{Feliz, Bien, Cansado, Estresado, Triste};
@@ -29,6 +29,9 @@ public class EstadoDeAnimo extends Ids {
 
     // Utiliza la anotación @Stereotype para convertir el campo en una caja grande de texto
     @Stereotype("TEXT_AREA")
+
+    // Utiliza la anotación @DisplaySize para especificar el número de caracteres que se mostrarán en la lista
+    @DisplaySize(10)
     @Column(length = 240)
     private String comentario;
 
