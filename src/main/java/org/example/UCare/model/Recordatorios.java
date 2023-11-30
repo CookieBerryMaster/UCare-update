@@ -4,6 +4,7 @@ package org.example.UCare.model;
 // Importa las anotaciones de Lombok y algunas clases de Java
 import lombok.Getter;
 import lombok.Setter;
+import org.example.UCare.calculators.CalcularEstudiante;
 import org.example.UCare.filter.FilterEstudiante;
 import org.openxava.annotations.*;
 
@@ -22,6 +23,8 @@ import java.time.LocalDateTime;
 // Anotación de OpenXava para especificar las propiedades de la pestaña en la interfaz de usuario
 @Tab(properties = "fechaHora, actividad.nombreDeActividad, realizado",
         baseCondition = "${estudiantes.cif}=?",filter= FilterEstudiante.class)
+@View(
+        members = "nuevoRecordatorio[fechaHora, realizado, actividad];" + "Recordatorios{estudiantes}")
 public class Recordatorios extends Ids {
 
     // Atributo de fecha y hora con anotación de OpenXava para definir un campo obligatorio
@@ -41,6 +44,7 @@ public class Recordatorios extends Ids {
     // Relacion many to one para estudiantes
     @ManyToOne
     @Required
+    @DefaultValueCalculator(value = CalcularEstudiante.class)
     private Estudiantes estudiantes;
 
     // Método oculto que valida si la fecha y hora son mayores o iguales a la actual
