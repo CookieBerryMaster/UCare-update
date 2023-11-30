@@ -2,10 +2,9 @@ package org.example.UCare.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.example.UCare.calculators.CalcularEstudiante;
 import org.example.UCare.filter.FilterEstudiante;
-import org.openxava.annotations.Hidden;
-import org.openxava.annotations.Required;
-import org.openxava.annotations.Tab;
+import org.openxava.annotations.*;
 
 import javax.persistence.*;
 import javax.transaction.Transactional;
@@ -17,7 +16,7 @@ import java.time.LocalDate;
 @Entity
 @Tab(properties = "nombreDeActividad,fecha,realizado,estudiantes.nombre",
       baseCondition = "${estudiantes.cif}=?",filter= FilterEstudiante.class)
-
+@View(members = "nuevaActividad[nombreDeActividad, fecha, realizado];" + "Ucare{estudiantes}")
 public class Actividades extends Ids{
 
     @Column(length = 50) @Required
@@ -27,6 +26,8 @@ public class Actividades extends Ids{
     private boolean realizado;
 
     @ManyToOne
+    @Required
+    @DefaultValueCalculator(value= CalcularEstudiante.class)
     private Estudiantes estudiantes;
 
     @Hidden
