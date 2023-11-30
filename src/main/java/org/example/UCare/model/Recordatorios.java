@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
         filter = FilterEstudiante.class
 )
 @View(
-        members = "nuevoRecordatorio[fechaHora, realizado, actividad]")
+        members = "nuevoRecordatorio[fechaHora, realizado, actividad];")
 public class Recordatorios extends Ids {
 
     @Required
