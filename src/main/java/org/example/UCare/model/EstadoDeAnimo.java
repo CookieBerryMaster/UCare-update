@@ -18,18 +18,24 @@ import java.util.Date;
 @Getter
 @Setter
 @Entity
-@View(members = "estadoDeAnimo[" + " estado;" +" comentario;" + " fecha;" + " ];" + "Ucare{estudiantes}")
+@View(members = "estadoDeAnimo[" + " estado;" + " comentario;" + " fecha;" + " ];" + "Ucare{estudiantes}")
 @Tab(properties = "estado,estudiantes.nombre",
-        baseCondition = "${estudiantes.cif}=?",filter= FilterEstudiante.class)
+        baseCondition = "${estudiantes.cif}=?", filter= FilterEstudiante.class)
 public class EstadoDeAnimo extends Ids {
-    public enum ESTADO{Feliz,Bien,Cansado,Estresado,Triste};
+    public enum ESTADO{Feliz, Bien, Cansado, Estresado, Triste};
+
     @Required
     private ESTADO estado;
+
+    // Utiliza la anotación @Stereotype para convertir el campo en una caja grande de texto
+    @Stereotype("TEXT_AREA")
     @Column(length = 240)
     private String comentario;
+
     @DefaultValueCalculator(CurrentDateCalculator.class)
     @ReadOnly
     private Date fecha;
+
     @ManyToOne
     @Required
     @DefaultValueCalculator(value= CalcularEstudiante.class)
@@ -40,6 +46,7 @@ public class EstadoDeAnimo extends Ids {
     public boolean iscomentariovalido() {
         return comentario != null && comentario.length() < 239;
     }
+
     @Hidden
     @AssertTrue(message = "Solo se puede registrar un estado de ánimo después de las 8 PM y antes de las 12 AM")
     public boolean isHoraValida() {
@@ -51,6 +58,3 @@ public class EstadoDeAnimo extends Ids {
         return hour >= 20 && hour < 24;
     }
 }
-
-
-
