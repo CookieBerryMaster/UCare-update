@@ -4,6 +4,7 @@ package org.example.UCare.model;
 // Importa las anotaciones de Lombok y algunas clases de Java
 import lombok.Getter;
 import lombok.Setter;
+import org.example.UCare.filter.FilterEstudiante;
 import org.openxava.annotations.*;
 
 import javax.persistence.*;
@@ -19,7 +20,8 @@ import java.time.LocalDateTime;
 @Entity
 
 // Anotación de OpenXava para especificar las propiedades de la pestaña en la interfaz de usuario
-@Tab(properties = "fechaHora, actividad.nombreDeActividad, realizado")
+@Tab(properties = "fechaHora, actividad.nombreDeActividad, realizado",
+        baseCondition = "${estudiantes.cif}=?",filter= FilterEstudiante.class)
 public class Recordatorios extends Ids {
 
     // Atributo de fecha y hora con anotación de OpenXava para definir un campo obligatorio
@@ -32,10 +34,14 @@ public class Recordatorios extends Ids {
 
     // Relación Many-to-One con la entidad Actividades
     @ManyToOne
-
     // Anotación de OpenXava para especificar que este campo es obligatorio
     @Required
     private Actividades actividad;
+
+    // Relacion many to one para estudiantes
+    @ManyToOne
+    @Required
+    private Estudiantes estudiantes;
 
     // Método oculto que valida si la fecha y hora son mayores o iguales a la actual
     // Se utiliza la anotación @AssertTrue de Java Bean Validation
